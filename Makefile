@@ -1,15 +1,21 @@
 # Makefile for kacchiOS
-CC = gcc
-LD = ld
-AS = as
+# Use the cross-compiler prefixes
+CC = i686-elf-gcc
+LD = i686-elf-ld
+AS = i686-elf-as
 
-CFLAGS = -m32 -ffreestanding -O2 -Wall -Wextra -nostdinc \
+CFLAGS = -ffreestanding -O2 -Wall -Wextra -nostdinc \
          -fno-builtin -fno-stack-protector -I.
-ASFLAGS = --32
+# Note: i686-elf-gcc/as defaults to 32-bit, but you can keep these:
+ASFLAGS = --32 
 LDFLAGS = -m elf_i386
 
 OBJS = boot.o kernel.o serial.o string.o
 OBJS += meminit.o getmem.o freemem.o getstk.o
+OBJS += process.o
+OBJS += scheduler.o
+OBJS+= context_switch.o
+
 all: kernel.elf
 
 kernel.elf: $(OBJS)

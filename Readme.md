@@ -52,7 +52,7 @@ make clean
 make
 
 # Run in QEMU
-make run
+qemu-system-i386 -kernel kernel.elf -serial stdio
 ```
 
 You should see:

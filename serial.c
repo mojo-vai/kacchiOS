@@ -50,6 +50,15 @@ void serial_puts(const char* str) {
     }
 }
 
+/* Print a 32-bit value in hexadecimal (0xABCD1234) */
+void serial_puthex32(uint32_t val) {
+    const char* hex = "0123456789ABCDEF";
+    serial_puts("0x");
+    for (int i = 28; i >= 0; i -= 4) {
+        serial_putc(hex[(val >> i) & 0xF]);
+    }
+}
+
 static int serial_received(void) {
     return inb(COM1 + 5) & 0x01;
 }

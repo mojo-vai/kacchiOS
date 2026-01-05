@@ -11,6 +11,8 @@ void *getmem(
 {
     //intmask mask; /* Saved interrupt mask */
     struct memblk *prev, *curr, *leftover;
+    struct memblk *best = NULL;
+    struct memblk *best_prev = NULL;
     //mask = disable();
     if (nbytes == 0)
     {
@@ -20,32 +22,34 @@ void *getmem(
     nbytes = (uint32_t) roundmb(nbytes); /* Use memblk multiples */
     prev = &memlist;
     curr = memlist.mnext;
-    while (curr != NULL)   /* Search free list */
-    {
-        if (curr->mlength == nbytes)   /* Block is exact match */
-        {
-            prev->mnext = curr->mnext;
-            memlist.mlength -= nbytes;
-            //restore(mask);
-            return (void *)(curr);
+        while (curr != NULL) {
+        if (curr->mlength >= nbytes) {
+            if (best == NULL || curr->mlength < best->mlength) {
+                best = curr;
+                best_prev = prev;
+            }
         }
-        else if (curr->mlength > nbytes)     /* Split big block */
-        {
-            leftover = (struct memblk *)((uint32_t) curr +
-                                         nbytes);
-            prev->mnext = leftover;
-            leftover->mnext = curr->mnext;
-            leftover->mlength = curr->mlength - nbytes;
-            memlist.mlength -= nbytes;
-            //restore(mask);
-            return (void *)(curr);
-        }
-        else     /* Move to next block */
-        {
-            prev = curr;
-            curr = curr->mnext;
-        }
+        prev = curr;
+        curr = curr->mnext;
     }
-    //restore(mask);
-    return NULL;
+        /* No suitable block found */
+    if (best == NULL)
+        return NULL;
+
+    /* Exact fit */
+    if (best->mlength == nbytes) {
+        best_prev->mnext = best->mnext;
+    }
+    /* Split block */
+    else {
+        leftover = (struct memblk *)((char *)best + nbytes);
+        leftover->mlength = best->mlength - nbytes;
+        leftover->mnext = best->mnext;
+
+        best_prev->mnext = leftover;
+    }
+
+    memlist.mlength -= nbytes;
+
+    return (void *)best;
 }
