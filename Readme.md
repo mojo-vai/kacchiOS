@@ -85,6 +85,37 @@ kacchiOS/
 ├── Makefile        # Build system
 └── README.md       # This file
 ```
+```
+kacchiOS/
+| ├── src/
+| ├── boot.S          # Bootloader entry point (Assembly)
+| ├──context_switch.S
+| ├── kernel.c        # Main kernel (null process)
+| ├── serial.c        # Serial port driver (COM1)
+| ├── serial.h        # Serial driver interface
+| ├── string.c        # String utility functions
+| ├── string.h        # String utility interface
+| ├── types.h         # Basic type definitions
+| ├── io.h            # I/O port operations
+| ├── link.ld         # Linker script
+│ ├── Makefile        #Build system
+│ ├── meminit.c
+| ├── getstk.c
+| ├── getmem.c
+| ├── freemem.c
+│ ├── memory.h
+│ ├── process.c
+│ ├── process.h
+│ ├── scheduler.c
+│ └── scheduler.h
+├── docs/
+│ ├── Checklist.pdf
+│ └── Project_Report.pdf
+├── video/
+│ └── Demo_Video.mp4
+└── README.md
+
+```
 
 ## 🛠️ Build System
 
