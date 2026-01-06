@@ -46,7 +46,7 @@ brew install qemu i686-elf-gcc
 ```bash
 # Clone the repository
 git clone https://github.com/mojo-vai/kacchiOS.git
-cd kacchiOS
+cd kacchiOS/src
 
 # Build the OS
 make clean
