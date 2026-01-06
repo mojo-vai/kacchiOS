@@ -32,6 +32,7 @@ Students will extend kacchiOS by implementing:
 ```bash
 # On Ubuntu/Debian
 sudo apt-get install build-essential qemu-system-x86 gcc-multilib
+sudo apt-get update && sudo apt-get install -y gcc-i686-linux-gnu binutils-i686-linux-gnu
 
 # On Arch Linux
 sudo pacman -S base-devel qemu gcc-multilib
