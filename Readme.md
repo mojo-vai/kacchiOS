@@ -73,20 +73,6 @@ Type something and press Enter - it will echo back!
 
 ```
 kacchiOS/
-├── boot.S          # Bootloader entry point (Assembly)
-├── kernel.c        # Main kernel (null process)
-├── serial.c        # Serial port driver (COM1)
-├── serial.h        # Serial driver interface
-├── string.c        # String utility functions
-├── string.h        # String utility interface
-├── types.h         # Basic type definitions
-├── io.h            # I/O port operations
-├── link.ld         # Linker script
-├── Makefile        # Build system
-└── README.md       # This file
-```
-```
-kacchiOS/
 | ├── src/
 | ├── boot.S          # Bootloader entry point (Assembly)
 | ├──context_switch.S
